@@ -9,24 +9,25 @@ function inputChanged(value: number) {
   percentage = value / 100;
 }
 
+function luminance(time: number) {
+  
+}
+
 let colors: { [index: string]: (percentage: number) => string } = {
-  background1: (percentage) => chroma.scale([
-    chroma('orange').desaturate(5).darken(4).hex(),
-    chroma('orange').desaturate(3).darken(3.5).hex(),
-    chroma('008ae5').desaturate(2.5).darken(1).hex(),
-    chroma('008ae5').desaturate(2.5).darken(1).hex(),
-    chroma('orange').desaturate(3).darken(3.5).hex(),
-    chroma('orange').desaturate(5).darken(4).hex(),
+  darkbackground: (percentage) => chroma.scale([
+    chroma('orange').desaturate(4).luminance(0.04).hex(),
+    chroma('orange').desaturate(3).luminance(0.06).hex(),
+    chroma('008ae5').desaturate(2.5).luminance(0.07).hex(),
+    chroma('orange').desaturate(3).luminance(0.06).hex(),
+    chroma('orange').desaturate(4).luminance(0.04).hex(),
   ]).mode('lab')(percentage),
-  background2: (percentage) => chroma(colors.background1(percentage)).darken(0.1).hex(),
-  foreground1: (percentage) => chroma.scale([
-    chroma('008ae5').desaturate(5).brighten().hex(),
-    chroma('008ae5').desaturate(3).brighten().hex(),
-    chroma('orange').desaturate(2.5).brighten().hex(),
-    chroma('008ae5').desaturate(3).brighten().hex(),
-    chroma('008ae5').desaturate(5).brighten().hex()
+  lightforeground: (percentage) => chroma.scale([
+    chroma('008ae5').desaturate(5).luminance(0.35).hex(),
+    chroma('008ae5').desaturate(3).luminance(0.4).hex(),
+    chroma('yellow').desaturate(3).luminance(0.45).hex(),
+    chroma('008ae5').desaturate(3).luminance(0.4).hex(),
+    chroma('008ae5').desaturate(5).luminance(0.35).hex()
   ])(percentage),
-  foreground2: (percentage) => "#FDF6E3",
   yellow: (percentage) => "yellow",
   orange: (percentage) => "orange",
   red: (percentage) => `red`,
@@ -38,7 +39,7 @@ let colors: { [index: string]: (percentage: number) => string } = {
 }
 
 function calcContrast(color: string) {
-  return chroma.contrast(colors.background1(percentage), colors[color](percentage)).toString().substr(0, 5);
+  return chroma.contrast(colors.darkbackground(percentage), colors[color](percentage)).toString().substr(0, 5);
 }
 
 function createColorDemo(color: string) {
@@ -57,10 +58,10 @@ var InputSlider = {
 
 var DemoText = {
   view: () => {
-    document.body.style.background = colors.background1(percentage);
+    document.body.style.background = colors.darkbackground(percentage);
     document.body.style["font-family"] = "monospace";
     return m("div", [
-      createColorDemo("foreground1"),
+      createColorDemo("lightforeground"),
       createColorDemo("red"),
       createColorDemo("orange"),
       createColorDemo("yellow"),
@@ -70,6 +71,13 @@ var DemoText = {
       createColorDemo("magenta"),
       createColorDemo("violet")
     ]);
+  }
+}
+
+let count = 28;
+var Counter = {
+  view: () => {
+    return m("p", {onclick: () => count++}, count)
   }
 }
 
