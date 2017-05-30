@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <script src="deps/systemjs/system.js"></script>
+        <script>
+         SystemJS.config({
+             packages: {
+                 '.': {
+                     defaultExtension: 'js',
+                     baseURL: "/js"
+                 }
+             },
+             map: {
+                 'underscore': '../deps/underscore/underscore.js',
+                 'jquery': '../deps/jquery/jquery-3.1.1.min.js',
+                 'mithril': '../deps/mithril/mithril.js',
+                 'chroma-js': '../deps/chroma/chroma.min.js'
+             }
+         });
+        </script>
+    </head>
+    <body>
+        <script>
+         SystemJS.import('/js/main.js');
+        </script>
+    </body>
+</html>

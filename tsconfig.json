@@ -1,0 +1,9 @@
+{
+    "target": "es6",
+    "module": "System",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "jsxFactory": "m"
+}

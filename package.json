@@ -1,0 +1,24 @@
+{
+  "name": "bonfire-canvas",
+  "version": "0.0.1",
+  "description": "bonfire canvas rewrite",
+  "main": "index.js",
+  "author": "02Credits LLC",
+  "devDependencies": {
+    "@types/chroma-js": "^1.1.32",
+    "@types/es6-promise": "0.0.32",
+    "@types/jquery": "^2.0.40",
+    "@types/underscore": "^1.7.36",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-shell": "^0.6.3",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-typescript": "^3.1.5",
+    "gulp-webserver": "^0.9.1",
+    "mithril": "^1.0.1",
+    "typescript": "^2.1.6"
+  },
+  "dependencies": {
+    "@types/mithril": "^1.1.2"
+  }
+}

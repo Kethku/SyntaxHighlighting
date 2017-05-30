@@ -1,0 +1,29 @@
+* References
+http://ethanschoonover.com/solarized
+** Library
+http://gka.github.io/chroma.js/#quick-start
+** Color Links
+http://www.spc.noaa.gov/publications/corfidi/sunset/
+* Goals
+** Main Colors
+Background must have as low a contrast as possible
+while still being readable at all times
+
+Background must transition from light to dark
+For this to work the text must transition in the other
+direction and have opposite hue. That way the contrast
+is high enough during the transition period. Also the
+transition period when the foreground and background
+are closest must be as quick as possible
+
+I should pick a day and night background and foreground
+set and then transition between them.
+
+Sin waves might be a good option because they have a
+relatively short transition.
+** Accents
+The accents should stay relatively constant, but should
+have banned hues around the day and night hues. My guess
+is that the banned colors will be around yellow and blue.
+This way the transitions to not knock the accents off of
+they're place.
