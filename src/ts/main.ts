@@ -10,21 +10,39 @@ function inputChanged(value: number) {
 }
 
 let colors: { [index: string]: (percentage: number) => string } = {
-  background1: (percentage) => chroma.scale(
-    ['black', 'orange', 'yellow', 'cyan', 'cyan', 'yellow', 'orange', 'black']
-      .map((c) => chroma(c).desaturate(4).luminance(0.5).hex())
-  )(percentage),
-  background2: (percentage) => "#073642",
-  foreground1: (percentage) => "#EEE8D5",
+  background1: (percentage) => chroma.scale([
+    chroma('orange').desaturate(5).darken(4).hex(),
+    chroma('orange').desaturate(3).darken(3.5).hex(),
+    chroma('008ae5').desaturate(2.5).darken(1).hex(),
+    chroma('008ae5').desaturate(2.5).darken(1).hex(),
+    chroma('orange').desaturate(3).darken(3.5).hex(),
+    chroma('orange').desaturate(5).darken(4).hex(),
+  ]).mode('lab')(percentage),
+  background2: (percentage) => chroma(colors.background1(percentage)).darken(0.1).hex(),
+  foreground1: (percentage) => chroma.scale([
+    chroma('008ae5').desaturate(5).brighten().hex(),
+    chroma('008ae5').desaturate(3).brighten().hex(),
+    chroma('orange').desaturate(2.5).brighten().hex(),
+    chroma('008ae5').desaturate(3).brighten().hex(),
+    chroma('008ae5').desaturate(5).brighten().hex()
+  ])(percentage),
   foreground2: (percentage) => "#FDF6E3",
-  yellow: (percentage) => "#B58900",
-  orange: (percentage) => "#CB4B16",
-  red: (percentage) => `rgb(0, 0, ${percentage * 255})`,
-  magenta: (percentage) => "#D33682",
-  violet: (percentage) => "#6C71C4",
-  blue: (percentage) => "#268bd2",
-  cyan: (percentage) => "2AA198",
-  green: (percentage) => "859900"
+  yellow: (percentage) => "yellow",
+  orange: (percentage) => "orange",
+  red: (percentage) => `red`,
+  magenta: (percentage) => "magenta",
+  violet: (percentage) => "violet",
+  blue: (percentage) => "blue",
+  cyan: (percentage) => "cyan",
+  green: (percentage) => "green"
+}
+
+function calcContrast(color: string) {
+  return chroma.contrast(colors.background1(percentage), colors[color](percentage)).toString().substr(0, 5);
+}
+
+function createColorDemo(color: string) {
+  return m("p", {style: {color: colors[color](percentage)}}, color + ": " + calcContrast(color));
 }
 
 var InputSlider = {
@@ -42,18 +60,15 @@ var DemoText = {
     document.body.style.background = colors.background1(percentage);
     document.body.style["font-family"] = "monospace";
     return m("div", [
-      m("p", [
-        m("span", {style: {color: colors.red(percentage)}}, "red"), " ",
-        m("span", {style: {color: colors.orange(percentage)}}, "orange"), " ",
-        m("span", {style: {color: colors.yellow(percentage)}}, "yellow"), " ",
-        m("span", {style: {color: colors.green(percentage)}}, "green"), " ",
-        m("span", {style: {color: colors.blue(percentage)}}, "blue"), " ",
-        m("span", {style: {color: colors.cyan(percentage)}}, "cyan"), " ",
-        m("span", {style: {color: colors.magenta(percentage)}}, "magenta"), " ",
-        m("span", {style: {color: colors.violet(percentage)}}, "violet")
-      ]),
-      m("p", {style: {color: colors.foreground1(percentage)}},
-        "This is demo text for the forground color.")
+      createColorDemo("foreground1"),
+      createColorDemo("red"),
+      createColorDemo("orange"),
+      createColorDemo("yellow"),
+      createColorDemo("green"),
+      createColorDemo("blue"),
+      createColorDemo("cyan"),
+      createColorDemo("magenta"),
+      createColorDemo("violet")
     ]);
   }
 }
